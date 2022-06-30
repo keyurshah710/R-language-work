@@ -1,0 +1,201 @@
+race,class,marital,children,educ,haprate,age,cograd,realrinc,female
+other,working class,never married,0,14,not too happy,30,Not CO Grad,16363,Female
+white,middle class,married,2,14,pretty happy,39,Not CO Grad,37895,Male
+white,working class,married,4,10,pretty happy,39,Not CO Grad,11329,Male
+white,middle class,married,1,16,pretty happy,37,CO Grad,418,Male
+white,working class,married,4,12,not too happy,53,Not CO Grad,500,Female
+white,working class,married,2,17,not too happy,31,CO Grad,22206,Male
+white,working class,married,3,16,very happy,34,CO Grad,29925,Female
+white,working class,married,2,17,very happy,41,CO Grad,16835,Female
+white,lower class,married,0,15,very happy,30,Not CO Grad,7481,Male
+white,working class,married,5,12,pretty happy,37,Not CO Grad,101376,Male
+white,upper class,married,.d,10,very happy,62,Not CO Grad,25587,Male
+white,working class,married,4,7,pretty happy,51,Not CO Grad,8667,Male
+white,working class,divorced,0,16,pretty happy,25,CO Grad,15633.75,Female
+white,working class,never married,0,12,pretty happy,43,Not CO Grad,37895,Male
+white,middle class,never married,0,12,pretty happy,23,Not CO Grad,15682,Male
+other,working class,widowed,3,12,pretty happy,69,Not CO Grad,15793,Female
+white,working class,married,3,9,pretty happy,33,Not CO Grad,42234.75,Male
+white,working class,married,2,13,not too happy,34,Not CO Grad,26411,Male
+white,middle class,never married,0,9,pretty happy,20,Not CO Grad,312.85,Male
+white,.i,never married,0,12,pretty happy,26,Not CO Grad,18459,Female
+white,middle class,never married,0,16,pretty happy,25,CO Grad,8254,Female
+black,working class,married,4,12,pretty happy,52,Not CO Grad,6525,Female
+white,middle class,married,0,20,pretty happy,54,CO Grad,49813.5,Male
+white,middle class,married,3,18,very happy,46,CO Grad,31005,Male
+white,working class,never married,0,14,not too happy,24,Not CO Grad,15633.75,Male
+white,middle class,married,0,20,very happy,63,CO Grad,49813.5,Male
+white,middle class,married,2,17,very happy,39,CO Grad,45837,Male
+white,upper class,married,4,4,pretty happy,61,Not CO Grad,12756,Male
+white,working class,married,3,11,very happy,57,Not CO Grad,25619,Male
+white,.i,divorced,0,15,pretty happy,38,Not CO Grad,2272,Female
+white,middle class,married,3,12,pretty happy,71,Not CO Grad,6273,Female
+white,middle class,married,0,13,pretty happy,20,Not CO Grad,7130,Female
+white,upper class,married,2,12,very happy,NA,Not CO Grad,100496,Female
+white,working class,separated,1,13,very happy,27,Not CO Grad,18459,Female
+white,middle class,never married,0,20,not too happy,39,CO Grad,37895,Male
+white,middle class,never married,0,13,pretty happy,21,Not CO Grad,13595,Male
+white,working class,married,3,15,pretty happy,34,Not CO Grad,28490,Female
+white,middle class,married,0,12,pretty happy,24,Not CO Grad,16633,Male
+white,working class,never married,0,13,pretty happy,24,Not CO Grad,26484,Female
+white,lower class,married,2,7,not too happy,61,Not CO Grad,13570,Male
+white,middle class,married,2,15,pretty happy,33,Not CO Grad,24830,Female
+white,working class,never married,0,12,pretty happy,49,Not CO Grad,15793,Male
+white,middle class,never married,0,12,pretty happy,18,Not CO Grad,1071,Female
+white,working class,married,3,12,not too happy,59,Not CO Grad,32100,Male
+white,middle class,married,1,12,very happy,26,Not CO Grad,15279,Female
+white,working class,never married,0,15,pretty happy,26,Not CO Grad,17335,Female
+white,middle class,married,2,12,very happy,52,Not CO Grad,28030,Male
+white,middle class,married,1,12,very happy,56,Not CO Grad,963,Female
+white,working class,married,3,12,pretty happy,42,Not CO Grad,14641,Female
+white,middle class,widowed,3,15,not too happy,59,Not CO Grad,21659,Female
+white,working class,widowed,7,15,not too happy,61,Not CO Grad,17757,Female
+white,working class,divorced,1,14,very happy,33,Not CO Grad,29475,Female
+white,working class,married,2,14,very happy,33,Not CO Grad,3619,Female
+white,middle class,married,2,9,pretty happy,48,Not CO Grad,35651,Male
+white,working class,never married,0,13,very happy,22,Not CO Grad,10806,Female
+white,working class,married,2,12,pretty happy,33,Not CO Grad,30841,Male
+white,working class,never married,0,16,pretty happy,24,CO Grad,13563,Female
+black,working class,never married,0,14,pretty happy,30,Not CO Grad,21612,Male
+white,middle class,divorced,1,9,pretty happy,35,Not CO Grad,22980,Male
+white,middle class,never married,0,12,pretty happy,44,Not CO Grad,34380,Male
+white,working class,married,2,8,pretty happy,36,Not CO Grad,12381,Female
+white,.i,married,1,16,pretty happy,35,CO Grad,26411,Male
+white,working class,married,4,12,very happy,42,Not CO Grad,33016,Male
+white,middle class,married,5,16,pretty happy,57,CO Grad,28650,Female
+white,working class,married,0,12,not too happy,25,Not CO Grad,26484,Male
+white,lower class,divorced,2,12,not too happy,27,Not CO Grad,5827.5,Female
+white,lower class,never married,0,10,not too happy,41,Not CO Grad,12830.75,Female
+white,middle class,divorced,6,17,very happy,56,CO Grad,37603,Female
+white,working class,widowed,2,12,pretty happy,62,Not CO Grad,13750,Female
+white,working class,married,2,12,pretty happy,58,Not CO Grad,25582.5,Male
+white,middle class,married,2,11,pretty happy,51,Not CO Grad,42068,Male
+white,working class,married,2,12,pretty happy,22,Not CO Grad,3021,Male
+black,working class,married,2,16,pretty happy,45,CO Grad,11781,Female
+white,working class,never married,0,11,not too happy,21,Not CO Grad,4692.75,Female
+white,working class,never married,0,16,very happy,30,CO Grad,34078,Male
+white,upper class,married,1,16,pretty happy,48,CO Grad,97684,Male
+white,working class,married,3,12,very happy,32,Not CO Grad,22206,Male
+white,middle class,never married,0,14,very happy,21,Not CO Grad,3500,Female
+white,working class,divorced,1,12,pretty happy,28,Not CO Grad,4447,Female
+white,middle class,married,3,16,very happy,46,CO Grad,51237,Male
+white,working class,never married,0,15,pretty happy,31,Not CO Grad,24097.5,Female
+white,middle class,married,2,12,pretty happy,41,Not CO Grad,9167,Female
+white,middle class,never married,0,14,very happy,22,Not CO Grad,1671,Male
+black,middle class,never married,2,13,pretty happy,22,Not CO Grad,2538,Female
+black,working class,never married,1,11,very happy,19,Not CO Grad,1234,Female
+white,working class,separated,6,12,not too happy,56,Not CO Grad,7122.5,Male
+white,middle class,married,2,13,not too happy,49,Not CO Grad,111284,Male
+black,working class,divorced,2,17,pretty happy,51,CO Grad,25582.5,Female
+white,middle class,never married,0,12,pretty happy,25,Not CO Grad,7984,Male
+white,working class,married,3,12,very happy,38,Not CO Grad,27158,Male
+white,middle class,married,2,18,very happy,41,CO Grad,17403.75,Female
+black,working class,divorced,1,12,not too happy,27,Not CO Grad,8156,Female
+white,middle class,married,2,16,pretty happy,53,CO Grad,55e3,Male
+white,middle class,divorced,0,13,very happy,46,Not CO Grad,17206.75,Male
+white,middle class,never married,0,11,pretty happy,19,Not CO Grad,4952,Male
+other,working class,married,1,12,pretty happy,69,Not CO Grad,1137,Female
+white,middle class,never married,0,11,pretty happy,21,Not CO Grad,7039.125,Male
+white,middle class,married,2,14,very happy,41,Not CO Grad,50027,Male
+black,working class,never married,1,15,pretty happy,27,Not CO Grad,5827.5,Male
+white,middle class,married,1,17,very happy,28,CO Grad,13242,Female
+white,middle class,married,1,8,pretty happy,71,Not CO Grad,528,Male
+white,middle class,married,0,14,very happy,27,Not CO Grad,13242,Female
+white,middle class,never married,0,15,very happy,21,Not CO Grad,15668,Male
+white,working class,divorced,0,12,pretty happy,25,Not CO Grad,6500,Female
+white,middle class,married,0,12,very happy,47,Not CO Grad,134008.44,Male
+white,working class,married,2,14,pretty happy,34,Not CO Grad,17757,Male
+white,middle class,married,1,12,pretty happy,32,Not CO Grad,16994,Male
+white,working class,never married,0,9,pretty happy,23,Not CO Grad,16577,Male
+white,middle class,never married,0,16,pretty happy,25,CO Grad,27158,Male
+white,middle class,married,2,16,pretty happy,45,CO Grad,32625,Female
+white,middle class,married,4,15,very happy,51,Not CO Grad,18947,Female
+black,middle class,never married,1,12,pretty happy,21,Not CO Grad,10005,Male
+white,middle class,married,1,18,very happy,40,CO Grad,22392,Female
+white,working class,married,3,18,pretty happy,45,CO Grad,32625,Male
+white,working class,married,2,9,pretty happy,32,Not CO Grad,1572,Female
+white,middle class,married,2,16,pretty happy,33,CO Grad,34380,Male
+white,middle class,married,2,12,very happy,32,Not CO Grad,12415,Female
+white,working class,never married,0,18,pretty happy,34,CO Grad,19938,Female
+white,working class,married,2,12,pretty happy,35,Not CO Grad,20770,Male
+white,working class,married,0,15,pretty happy,58,Not CO Grad,14446,Female
+white,middle class,married,0,15,pretty happy,25,Not CO Grad,8142,Female
+other,working class,never married,3,9,not too happy,31,Not CO Grad,259,Female
+white,middle class,never married,0,12,very happy,29,Not CO Grad,42735,Male
+white,working class,divorced,0,12,pretty happy,71,Not CO Grad,7039.125,Female
+white,working class,separated,0,14,not too happy,32,Not CO Grad,39875,Male
+white,working class,married,0,12,pretty happy,24,Not CO Grad,14415,Male
+black,lower class,married,4,11,not too happy,40,Not CO Grad,2201,Male
+white,middle class,married,4,12,very happy,38,Not CO Grad,18471,Male
+white,working class,married,2,12,pretty happy,60,Not CO Grad,26538,Female
+white,middle class,married,0,16,pretty happy,25,CO Grad,5730,Female
+white,middle class,never married,0,18,pretty happy,29,CO Grad,21010,Female
+white,working class,divorced,0,14,pretty happy,31,Not CO Grad,8254,Female
+white,middle class,married,2,20,very happy,44,CO Grad,103206,Male
+white,middle class,never married,0,12,pretty happy,21,Not CO Grad,4220,Male
+black,middle class,married,4,12,very happy,61,Not CO Grad,18851,Male
+white,middle class,divorced,2,12,pretty happy,22,Not CO Grad,92692,Male
+white,working class,married,0,6,pretty happy,58,Not CO Grad,30841,Male
+black,working class,divorced,0,12,pretty happy,59,Not CO Grad,7500,Female
+black,middle class,never married,1,12,pretty happy,19,Not CO Grad,3988,Female
+white,middle class,never married,0,16,pretty happy,28,CO Grad,12302.5,Male
+white,working class,divorced,1,18,pretty happy,47,CO Grad,42020,Female
+white,middle class,married,1,14,pretty happy,28,Not CO Grad,25465,Female
+white,working class,never married,0,13,pretty happy,26,Not CO Grad,9980,Male
+black,working class,never married,4,9,pretty happy,22,Not CO Grad,7122.5,Male
+other,middle class,married,0,12,not too happy,26,Not CO Grad,21615,Female
+white,working class,never married,1,16,very happy,42,CO Grad,9712.5,Female
+black,upper class,married,2,14,very happy,56,Not CO Grad,38222,Male
+black,lower class,married,5,15,very happy,54,Not CO Grad,17154,Male
+white,middle class,married,1,12,pretty happy,37,Not CO Grad,6333,Female
+white,middle class,married,3,13,pretty happy,32,Not CO Grad,16994,Male
+white,middle class,married,0,14,pretty happy,48,Not CO Grad,42234.75,Female
+white,working class,married,4,15,very happy,67,Not CO Grad,14245,Male
+other,.i,never married,0,12,pretty happy,21,Not CO Grad,568,Male
+white,middle class,married,3,20,pretty happy,53,CO Grad,87058,Male
+white,middle class,married,2,12,pretty happy,38,Not CO Grad,92692,Male
+white,middle class,divorced,2,20,very happy,69,CO Grad,109525.16,Female
+white,middle class,separated,1,13,pretty happy,25,Not CO Grad,16994,Female
+white,middle class,never married,0,16,not too happy,32,CO Grad,33016,Male
+white,lower class,never married,0,12,pretty happy,30,Not CO Grad,13750,Male
+black,working class,never married,1,12,pretty happy,19,Not CO Grad,755,Female
+white,middle class,married,4,18,very happy,56,CO Grad,92594,Male
+white,middle class,never married,0,16,pretty happy,26,CO Grad,19938,Female
+white,lower class,divorced,1,12,not too happy,69,Not CO Grad,7481,Male
+white,middle class,never married,0,16,pretty happy,25,CO Grad,8595,Male
+black,working class,never married,0,17,pretty happy,25,CO Grad,14726.25,Male
+white,working class,married,0,17,very happy,27,CO Grad,5287,Male
+white,middle class,never married,0,14,very happy,21,Not CO Grad,12229,Male
+white,.i,separated,2,11,pretty happy,31,Not CO Grad,26411,Female
+white,working class,married,1,10,pretty happy,37,Not CO Grad,28030,Male
+white,middle class,married,1,7,very happy,44,Not CO Grad,1528,Female
+white,working class,married,3,10,not too happy,54,Not CO Grad,15132,Male
+white,middle class,divorced,3,12,not too happy,60,Not CO Grad,550,Female
+white,working class,never married,0,12,pretty happy,30,Not CO Grad,8603.375,Male
+white,middle class,married,3,12,pretty happy,34,Not CO Grad,45e3,Male
+black,working class,married,1,12,very happy,24,Not CO Grad,13563,Female
+white,working class,married,3,9,pretty happy,22,Not CO Grad,2038,Female
+white,working class,married,3,9,pretty happy,28,Not CO Grad,6741,Female
+white,middle class,married,4,12,very happy,48,Not CO Grad,1112,Male
+black,middle class,widowed,5,15,very happy,50,Not CO Grad,12918,Male
+black,working class,married,3,10,pretty happy,50,Not CO Grad,19111,Male
+white,middle class,never married,0,15,pretty happy,23,Not CO Grad,8636,Female
+white,working class,widowed,3,11,pretty happy,80,Not CO Grad,41746,Male
+white,middle class,married,1,12,pretty happy,38,Not CO Grad,21010,Male
+other,working class,married,1,10,very happy,37,Not CO Grad,3695,Female
+white,working class,divorced,3,12,pretty happy,27,Not CO Grad,14015,Female
+white,middle class,married,2,12,very happy,38,Not CO Grad,27188,Male
+white,middle class,married,4,11,very happy,58,Not CO Grad,13595,Female
+white,middle class,married,1,16,very happy,28,CO Grad,31299,Male
+white,middle class,separated,4,16,pretty happy,58,CO Grad,16284,Female
+white,middle class,married,4,17,pretty happy,37,CO Grad,81652,Male
+white,middle class,married,1,12,pretty happy,39,Not CO Grad,603,Female
+black,middle class,married,0,16,very happy,31,CO Grad,39875,Female
+white,working class,never married,0,12,not too happy,23,Not CO Grad,25587,Male
+white,working class,never married,1,12,pretty happy,24,Not CO Grad,14325,Female
+other,working class,married,2,14,pretty happy,32,Not CO Grad,21010,Female
+white,middle class,married,2,15,very happy,47,Not CO Grad,27188,Male
+white,working class,divorced,0,14,pretty happy,36,Not CO Grad,16835,Female
+white,middle class,married,1,13,very happy,68,Not CO Grad,6798,Male
+white,working class,married,5,9,pretty happy,48,Not CO Grad,6248,Female
+white,working class,married,4,10,very happy,32,Not CO Grad,9811.75,Male

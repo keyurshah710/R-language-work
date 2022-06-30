@@ -1,0 +1,268 @@
+---
+title: "USA data analysis"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+#Q1: Read the ushealth.csv data into a dataframe named health
+```{r}
+library(tidyverse)
+dataURL = "R:/ISU/Sem 3 - Fall 21/IT 497 - Introduction to Reseach Methodology/Exam 1/ushealth.csv"
+health = read_csv(dataURL)
+```
+
+#Q2: Show the dimensions of the health dataframe
+```{r}
+dim(health)
+```
+
+#Q3: Show the structure of the health dataframe
+```{r}
+str(health)
+```
+
+#Q4: The total type is not really a formal type of healthcare coverage. It really represents just the total number of people in the state. Rename this column tot_pop in the health dataframe. 
+```{r}
+health = health %>%
+  rename(tot_pop = total)
+```
+
+#Q5: The column tot_spending column is reported in millions. The other numbers in our data are not. You need to adjust for this scaling factor to report it on the original scale (just dollars). Multiple tot_spending by 1000000. Make sure the tot_spending column in your health dataframe is updated to reflect this change.
+```{r}
+health = health %>%
+  mutate(tot_spending = tot_spending*1000000)
+```
+
+#Q6: Add a new column to your health dataframe called prop_coverage. prop_coverage will represent the proportion of people who are coverage in each state, year and type.
+
+Here is the formula: prop_coverage = tot_coverage/tot_pop
+```{r}
+health = health %>%
+  mutate(prop_coverage = tot_coverage/tot_pop)
+```
+
+#Q7: Add another column to your dataset. Add the spending per capita (or spending per person) in dollars and name this column spending_capita
+.
+Here is the formula
+spending_capita = tot_spending / tot_pop.
+```{r}
+health = health %>%
+  mutate(spending_capita = tot_spending / tot_pop)
+```
+
+#Q8: Use the summarize() function to compute the average (or mean) spending per capita. Use the mean() function to the column spending_captia and call the summary value avg_spending_capita.
+```{r}
+health %>%
+  summarize(avg_spending_capita = mean(spending_capita, na.rm = TRUE))
+```
+
+#Q9: Show the relationship between healthcare coverage and healthcare spending (i.e., spending_capita and prop_coverage) using a scatter plot.
+```{r}
+health %>%
+  ggplot(aes(spending_capita, prop_coverage)) +
+  geom_point() +
+  labs(title = "The relationship between healthcare coverage and healthcare spending",
+       x = "Spending Capita",
+       y = "Prop Coverage") 
+```
+
+#Q10: Using filter() and the ushealth.csv data, create a data frame that only has the Location = "United States". Call this dataframe ushealth. Show the first 8 rows of the ushealth dataframe.
+```{r}
+ushealth = health %>%
+  filter(Location == "United States")
+head(ushealth, 8)
+```
+
+#Q11: Using filter() and the ushealth.csv data, create a data frame that only has the Location != "United States". Call this dataframe sthealth. Show the last 6 rows of the sthealth dataframe.
+```{r}
+sthealth = health %>%
+  filter(Location != "United States")
+tail(sthealth, 6)
+```
+
+#Q12: Using filter() and the sthealth dataframe to create a dataframe that only has the states you were assigned. Call this dataframe mydata.
+```{r}
+mydata = health %>%
+  filter(Location == c("New York", "Arkansas", "Missouri", "Idaho"))
+head(mydata, 15)
+```
+
+#Q13: Display all states ordered from lowest to highest by tot_coverage. Each state (and the District of Columbia) should be shown one time in the list. 
+```{r}
+health %>%
+  group_by(Location) %>%
+  summarize(meann = mean(tot_coverage, na.rm = TRUE)) %>%
+  select(Location, meann) %>%
+  arrange(meann)
+```
+
+#Q14: Display your assigned states ordered from lowest to highest by tot_coverage. Each state should be shown one time in the list. 
+```{r}
+mydata %>%
+  group_by(Location) %>%
+  summarize(meann = mean(tot_coverage, na.rm = TRUE)) %>%
+  select(Location, meann) %>%
+  arrange(meann)
+
+```
+
+#Q15: Use the complete sthealth data frame to answer the following question: In 2014, what were the top three states with the largest Employer type of healthcare coverage? Show these three states (and only these 3) in a bar chart.
+```{r}
+sthealth %>%
+  filter(type == "Employer", year == 2014) %>%
+  arrange(desc(tot_coverage)) %>%
+  slice(1:3) %>%
+  ggplot(aes(x = reorder(Location, -tot_coverage), y = tot_coverage/1000, fill = Location)) +
+  labs(title = "Top 3 States with highest Employer type Total Coverage", y = "Total Coverage (in 1000's)", x = "States") +
+  geom_bar(stat = "identity")
+
+```
+
+#Q16: Answer the following question: Is there a relationship between healthcare coverage and healthcare spending? We can get a preliminary answer by creating a scatter plot. Create a scatterplot showing tot_coverage on the x axis and tot_spending on the y axis.
+```{r}
+health %>%
+  ggplot(aes(tot_coverage/1000, tot_spending/100000000)) +
+  labs(title = "Total Coverage and Total Spending", x = "Total Coverage (in 1000's)", y = "Total Spending (in 100 millions)") +
+  geom_point()
+```
+
+#Q17: Create a scatterplot showing tot_pop on the x axis and tot_spending on the y axis. 
+```{r}
+health %>%
+  ggplot(aes(tot_pop/1000, tot_spending/100000000)) +
+  labs(title = "Total Population and Total Spending", x = "Total Population (in 1000's)", y = "Total Spending (in 100 millions)") +
+  geom_point()
+```
+
+#Q18: Use the group_by () function (and summarize()) to show the avg_spending_capita for each state. Use arrange your results to show states sorted from highest to lowest avg_spending_capita. 
+```{r}
+health %>%
+  group_by(Location) %>%
+  summarise(avg_spending_capita = mean(spending_capita, na.rm = TRUE)) %>%
+  arrange(desc(avg_spending_capita))
+```
+
+#Q19: Create a scatterplot with spending_capita on the x axis and prop_coverage on the y axis. Include geom_smooth() in your graph.
+```{r}
+health %>%
+  ggplot(aes(spending_capita, prop_coverage)) +
+  labs(title = "Total Coverage and Total Spending", x = "Spending Capita", y = "Prop Coverage") +
+  geom_point() +
+  geom_smooth()
+```
+
+#Q20: Find the 5 states with the highest number of uninsured. Show the number of uninsured for each of these five states using a bar chart. 
+```{r}
+health %>%
+  group_by(Location) %>%
+  filter(type == "Uninsured") %>%
+  summarize(sum = sum(tot_pop)) %>%
+  arrange(desc(sum)) %>%
+  slice(1:5) %>%
+  ggplot(aes(reorder(Location, -sum), sum/1000, fill = Location)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Top 5 States with highest number of uninsured population", y = "Total Population (in 1000's)", x = "States")
+```
+
+#Q21: Show spending_capita for each region for 2013 and 2014 (use a single bar chart for each year)
+```{r}
+health %>%
+  group_by(region, year)%>%
+  summarise(meann = mean(spending_capita)) %>%
+  drop_na(region) %>%
+  ggplot(aes(region, meann, fill = region)) +
+  geom_bar(stat = "identity") +
+  facet_wrap(vars(year))+
+  theme(axis.text.x = element_text(angle = 45, hjust=1)) +
+  labs(title = "Average Spending Capita for each Region\nper for 2013 & 2014", y = "Average Spending Capita (in 1000's)", x = "Region")
+```
+
+#Q22: Show spending_capita fore your assigned states for 2013 and 2014 (use a single bar chart for each year)
+```{r}
+mydata %>%
+  group_by(Location, year)%>%
+  summarise(meann = mean(spending_capita)) %>%
+  ggplot(aes(x = Location, y = meann, fill = Location)) +
+  geom_bar(stat = "identity") +
+  facet_wrap(vars(year)) +
+  theme(axis.text.x = element_text(angle = 45, hjust=1)) +
+  labs(title = "Spending Capita for each State\nfor 2013 & 2014", y = "Average Spending Capita", x = "Region")
+```
+
+
+#The Big Max index
+
+#Q23: Read the big-mac.csv data into a dataframe named big.mac
+```{r}
+library(tidyverse)
+dataURL = "https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-12-22/big-mac.csv"
+big.mac = read_csv(dataURL)
+```
+
+#Q24: Show the structure of the big.mac dataframe
+```{r}
+str(big.mac)
+```
+
+#Q25: Show the first 9 rows in the big.mac dataframe
+```{r}
+head(big.mac, 9)
+```
+
+#Q25: Find the 5 most expensive countries for Big Macs on 2000-04-01. (Used the dollar price column)
+```{r}
+big.mac %>%
+  filter(date == "2000-04-01") %>%
+  select(date, name, dollar_price) %>%
+  arrange(desc(dollar_price)) %>%
+  head(5)
+```
+
+#Q26: Find the 5 least expensive countries for Big Macs on 2000-04-01. (Used the dollar price column)
+```{r}
+big.mac %>%
+  filter(date == "2000-04-01") %>%
+  select(date, name, dollar_price) %>%
+  arrange(dollar_price) %>%
+  head(5)
+```
+
+#Q27: Find the 5 most expensive countries for Big Macs on 2020-07-01. (Used the dollar price column)
+```{r}
+big.mac %>%
+  filter(date == "2020-07-01") %>%
+  select(date, name, dollar_price) %>%
+  arrange(desc(dollar_price)) %>%
+  head(5)
+```
+
+#Q28: Find the 5 least expensive countries for Big Macs on 2020-07-01. (Used the dollar price column)
+```{r}
+big.mac %>%
+  filter(date == "2020-07-01") %>%
+  select(date, name, dollar_price) %>%
+  arrange(dollar_price) %>%
+  head(5)
+```
+
+#Q29: Show a scatterplot of the changes in Big Mac prices for your assigned country over the years/months. Include geom_smooth() in your graph.
+```{r}
+big.mac %>%
+  filter(name == "Argentina") %>%
+  ggplot(aes(date, dollar_price)) +
+  geom_point() +
+  geom_smooth() +
+  labs(title = "Big Mac Price Changes for Argentina", y = "Dollar Price", x = "Year") 
+```
+
+#Q30: Show a scatterplot of the changes in Big Mac prices in the US over the years/months. Include geom_smooth() in your graph.
+```{r}
+big.mac %>%
+  filter(name == "United States") %>%
+  ggplot(aes(date, dollar_price)) +
+  geom_point() +
+  geom_smooth() +
+  labs(title = "Big Mac Price Changes for United States", y = "Dollar Price", x = "Year")
+```

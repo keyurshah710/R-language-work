@@ -1,0 +1,112 @@
+---
+title: "eBay Homework"
+output:
+  html_document:
+    df_print: paged
+---
+1: That women bid higher than men
+2: That bidders will pay more for a new item than an old one
+
+To do that we will examine data from eBay auctions (and look at some prior literature). The dataset contains the results from auctions completed in 2008 for Apple 3rd Gen iPods (1GB). 
+
+Instructions:
+
+1. Find, download, and read the following article:
+Ba, S., & Pavlou, P. A. (2002). Evidence of the effect of trust-building technology in electronic markets: Price premiums and buyer behavior. MIS Quarterly, 243-268.
+
+Pay special attention to Study 2
+
+2. Create an R Notebook Titled eBay Homework
+
+3a. Read in the following eBay data:
+
+```{r}
+library(tidyverse)
+exfile = "http://www.itk.ilstu.edu/faculty/jrwolf/ebay.csv"
+df = read_csv(exfile)
+head(df)
+```
+
+
+# b. Examine the data (look at head and tail)
+```{r}
+head(df)
+```
+```{r}
+tail(df)
+```
+
+# c. Examine the structure (str) of the data
+```{r}
+str(df)
+```
+
+# d1. Find the Mean (mean) and Standard Deviation (sd) by old/new of Price
+```{r}
+oldPrices = df %>%
+  filter(Used == 1) %>%
+  summarize(meanUsed = mean(Price, na.rm = TRUE), sdUsed = sd(Price, na.rm = TRUE))
+oldPrices
+newPrices = df %>%
+  filter(New == 1) %>%
+  summarize(meanNew = mean(Price, na.rm = TRUE), sdNew = sd(Price, na.rm = TRUE))
+newPrices
+
+
+```
+
+# d2. Find the Mean (mean) and Standard Deviation (sd) by male/female of Price
+```{r}
+maleBuys = df %>%
+  filter(Gender == "M") %>%
+  summarize(meanUsed = mean(Price, na.rm = TRUE), sdMale = sd(Price, na.rm = TRUE))
+maleBuys
+femaleBuys = df %>%
+  filter(Gender == "F") %>%
+  summarize(meanNew = mean(Price, na.rm = TRUE), sdFemale = sd(Price, na.rm = TRUE))
+femaleBuys
+```
+
+# e1. Create a boxplot of Price (by old/new )
+```{r}
+df %>%
+  ggplot(aes(x = Cond, y = Price)) +
+  labs(title = "Price Variation", y = "Prices", x = "Old and New") +
+  geom_boxplot()
+```
+
+# e2. Create a boxplot of Price (by male/female )
+```{r}
+df %>%
+  ggplot(aes(x = Gender, y = Price)) +
+  labs(title = "Price Variation", y = "Prices", x = "Male and Female") +
+  geom_boxplot()
+```
+
+# f. Create a histogram of Price (by color)
+```{r}
+df %>%
+  group_by(Color) %>%
+  ggplot(aes(Price)) +
+  labs(title = "Histogram of Price",
+       x = "Price Range",
+       y = "Price Value") +
+  geom_histogram(binwidth = 4) +
+  facet_wrap(~Color, ncol = 3)
+```
+
+# g1. Run a t-test on Price (by old/new)
+```{r}
+t.test(Price ~ Cond, data = df)
+```
+
+# g2. Run a t-test on Price (by male/female)
+```{r}
+t.test(Price ~ Gender, data = df)
+```
+
+# h. report your findings for both t-tests using APA format 
+
+There is a big statistical difference, when we check the Condition of the product whether it is new item price (M = 42.79, SD = 8.77) compared to the Old item price(M = 31.40, SD = 11.18), t(790) = 17.9, p < 2.2e-16.
+
+On average, Women spent more on items (M = 38.49) compared to Men(M = 37.83) this difference was not at all significant, t(1044) = 0.95, p = 0.34.

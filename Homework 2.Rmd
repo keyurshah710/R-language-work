@@ -1,0 +1,195 @@
+---
+title: "R Notebook"
+output:
+  html_document:
+    df_print: paged
+---
+
+Take data input
+
+```{r}
+library(tidyverse)
+dataURL = "http://www.itk.ilstu.edu/faculty/jrwolf/gss200.csv"
+gss2 = read_csv(dataURL)
+```
+
+Rename Columns
+```{r}
+gss2 = gss2 %>%
+  rename(sex = female, income = realrinc )
+```
+
+
+
+#Graph1
+
+```{r}
+gss2 %>%
+  ggplot(aes(age, income/1000, color = factor(sex))) +
+  geom_point() +
+  labs(title = "Age vs Real Income\n200 Random Participants from the General Social Survey",
+       x = "Age", 
+       y = "income (in 1000's)", 
+       color='Gender') +
+  geom_smooth(method = "lm")
+```
+
+#Graph2
+
+```{r}
+gss2 %>%
+  ggplot(aes(age, income/1000, color = factor(cograd))) +
+  geom_point() +
+  labs(title = "Age vs Real Income\n200 Random Participants from the General Social Survey",
+       x = "Age", 
+       y = "income (in 1000's)", 
+       color='College Graduate') +
+  geom_smooth(method = "lm")
+```
+
+#Graph 3
+
+```{r}
+gss2 %>%
+  ggplot(aes(age, income/1000, color = factor(haprate))) +
+  geom_point() +
+  labs(title = "Age vs Real Income\n200 Random Participants from the General Social Survey",
+       x = "Age", 
+       y = "income (in 1000's)", 
+       color='Happiness Level') +
+  geom_smooth(method = "lm")
+```
+
+#Graph 4
+
+```{r}
+gss2 %>%
+  ggplot(aes(age, income/1000, color = factor(race))) +
+  geom_point() +
+  labs(title = "Age vs Real Income\n200 Random Participants from the General Social Survey",
+       x = "Age", 
+       y = "income (in 1000's)", 
+       color='Race') +
+  geom_smooth(method = "lm")
+```
+
+#Graph 5
+
+```{r}
+gss2 %>%
+  group_by(race, sex) %>%
+  summarise(sd = sd(income, na.rm = TRUE), count = n(), mean = mean(income), se = sd/sqrt(count), ic=se * qt((1-0.05)/2 + .5, count-1)) %>%
+  ggplot(aes(x = race, y = mean, fill = race)) +
+  geom_bar(stat = "identity") +
+  geom_errorbar(aes(ymin = mean-ic, ymax = mean+ic),
+    position = position_dodge(1), width = 0.2)+
+  labs(title = "Real Income, Race and Gender", x = "Race", y = "Income") +
+  theme(legend.position = "none") +
+  facet_grid(~sex)
+```
+
+#Graph 6
+```{r}
+gss2 %>%
+  group_by(marital) %>%
+  summarise(sd = sd(income, na.rm = TRUE), count = n(), mean = mean(income), se = sd/sqrt(count), ic=se * qt((1-0.05)/2 + .5, count-1)) %>%
+  ggplot(aes(x = marital, y = mean, fill = marital)) +
+  geom_bar(stat = "identity") +
+  geom_errorbar(aes(ymin = mean-ic, ymax = mean+ic),
+    position = position_dodge(1), width = 0.2)+
+  labs(title = "Real Income and Marital Status", x = "Marital Status", y = "Income") +
+  theme(legend.position = "none")
+```
+
+#Graph 7
+
+
+```{r}
+gss2 %>%
+  group_by(class) %>%
+  filter(class != ".i") %>%
+  summarise(
+    sd = sd(income, na.rm = TRUE), 
+    count = n(), mean = mean(income), 
+    se = sd/sqrt(count), 
+    ic=se * qt((1-0.05)/2 + .5, count-1)
+    ) %>%
+  ggplot(aes(x = class, y = mean, fill = class)) +
+  geom_bar(stat = "identity") +
+  geom_errorbar(aes(ymin = mean-ic, ymax = mean+ic),
+    position = position_dodge(1), width = 0.2)+
+  labs(title = "Real Income and Class Identification", x = "Class", y = "Income") +
+  theme(legend.position = "none")
+```
+
+
+#Graph 8
+
+```{r}
+gss2 %>%
+  ggplot(aes(x = sex, y = income/1000)) +
+  labs(title = "Real Income and Gender", y = "income (in 1000's)", x = "Gender") +
+  geom_boxplot()
+```
+
+#Graph 9
+
+```{r}
+gss2 %>%
+  ggplot(aes(x = race, y = income/1000)) +
+  labs(title = "Real Income and Race", y = "income (in 1000's)", x = "Race") +
+  geom_boxplot()
+```
+
+#Graph 10
+
+```{r}
+gss2 %>%
+  ggplot(aes(x = cograd, y = income/1000)) +
+  labs(title = "Real Income and College Graduation", y = "income (in 1000's)", x = "College Graduation") +
+  geom_boxplot()
+```
+
+#Graph11
+
+```{r}
+library(tidyverse)
+dataURL = "http://www.itk.ilstu.edu/faculty/jrwolf/exam_scores.csv"
+exam_score = read_csv(dataURL)
+
+meann = mean(exam_score$score)
+
+exam_score %>%
+  ggplot(aes(score)) +
+  labs(title = "Exam Scores from Another Class",
+       x = "Score",
+       y = "Students") +
+  geom_histogram(binwidth = 2, fill = "light blue", color = "blue") +
+  geom_vline(
+    xintercept= meann, 
+    size=0.8, color="red", 
+    linetype="dashed") +
+  theme(
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(),
+    panel.background = element_blank(), 
+    axis.line = element_line(colour = "black"))
+
+```
+
+#Graph 12
+
+```{r}
+meann = mean(exam_score$score)
+
+exam_score %>%
+  ggplot(aes(score)) +
+  labs(title = "Exam Scores from Another Class",
+       x = "Score",
+       y = "Students") +
+  geom_histogram(binwidth = 4, fill = "white", color = "blue") +
+  geom_vline(xintercept= meann, size=1.5, color="green", linetype="dashed")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(), axis.line = element_line(colour = "black"))
+```
+

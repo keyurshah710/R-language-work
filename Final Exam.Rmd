@@ -1,0 +1,518 @@
+---
+title: "Final Exam"
+output:
+  html_document:
+    df_print: paged
+---
+
+# For 3
+
+First visit https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-09-10 to learn more about the data. You will only need to read in the following file:
+tx_injuries.csv
+* Use select to obtain the columns: name_of_operation, ride_name, gender, age and body_part. Omit the other columns
+* Obtain the rows that include the name of operations of Schlitterbahn and Six Flags. Omit the others.
+Note: there are 8 different parks include the name of operations of Schlitterbahn and Six Flags:
+Schlitterbahn Galveston
+Schlitterbahn - New Braunfels
+Schlitterbahn-New Branufels
+Schlitterbahn Beach Waterpark - South Padre Island
+Schlitterbahn Galveston Island
+Six Flags Fiesta Texas
+Six Flags - Hurricane Harbor
+Six Flags Over Texas
+
+```{r}
+library(tidyverse)
+dataURL = "https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-09-10/tx_injuries.csv"
+injuries = read_csv(dataURL)
+head(injuries)
+```
+```{r}
+injuries$age = as.numeric(injuries$age)
+```
+
+* Omit any rows with missing data in the columns age or gender.
+```{r}
+injuries = injuries %>% 
+  drop_na(age, gender) %>%
+  subset(!(age %in% c("n/a", "N/A"))) %>%
+  subset(!(gender %in% c("n/a", "N/A"))) 
+```
+
+* Using a bargraph (or histogram), show the total number injured for each of 8 amusement parks in our data. Write a two sentence explanation of the graph.
+```{r}
+injuries %>%
+  group_by(name_of_operation) %>%
+  filter(name_of_operation %in% c("Schlitterbahn Galveston", 
+                                  "Schlitterbahn - New Braunfels",
+                                  "Schlitterbahn-New Branufels",
+                                  "Schlitterbahn Beach Waterpark - South Padre Island",
+                                  "Schlitterbahn Galveston Island",
+                                  "Six Flags Fiesta Texas",
+                                  "Six Flags - Hurricane Harbor",
+                                  "Six Flags Over Texas")) %>%
+  ggplot(aes(x = name_of_operation, fill = name_of_operation)) +
+  geom_bar() +
+  theme(axis.text.x = element_text(angle = 55, hjust=1)) +
+  labs(title = "Total number injured for each of 8 amusement parks", y = "Count") +
+  theme(legend.position = "none")
+
+```
+
+Explanation - We can notice from the graph that the total number injured for Six Flags Over Texas flag park is the highest while Schlitterbahn Gavleston park has the lowest number of injuries.
+
+
+* Using a bargraph (or histogram), show the average age for each of the 8 amusement parks. Write a two sentence explanation of the graph.
+```{r}
+injuries %>%
+  group_by(name_of_operation) %>%
+  summarise(avg = mean(age)) %>%
+  filter(name_of_operation %in% c("Schlitterbahn Galveston", 
+                                  "Schlitterbahn - New Braunfels",
+                                  "Schlitterbahn-New Branufels",
+                                  "Schlitterbahn Beach Waterpark - South Padre Island",
+                                  "Schlitterbahn Galveston Island",
+                                  "Six Flags Fiesta Texas",
+                                  "Six Flags - Hurricane Harbor",
+                                  "Six Flags Over Texas")) %>%
+  ggplot(aes(x = name_of_operation, y = avg, fill = name_of_operation)) +
+  geom_bar(stat = "identity") +
+  theme(axis.text.x = element_text(angle = 55, hjust=1)) +
+  labs(title = "Total number injured for each of 8 amusement parks", y = "Average Age") +
+  theme(legend.position = "none")
+```
+
+Explanation - According to the graph we can conclude that the average age of people who were injured in the 8 amusement parks was between 20 to 35. 
+
+
+* Using a bargraph (or histogram), show the average age for each gender for each of the 8 amusement parks. Write a two sentence explanation of the graph.
+```{r}
+injuries %>%
+  group_by(name_of_operation, gender) %>%
+  summarise(avg = mean(age)) %>%
+  filter(name_of_operation %in% c("Schlitterbahn Galveston", 
+                                  "Schlitterbahn - New Braunfels",
+                                  "Schlitterbahn-New Branufels",
+                                  "Schlitterbahn Beach Waterpark - South Padre Island",
+                                  "Schlitterbahn Galveston Island",
+                                  "Six Flags Fiesta Texas",
+                                  "Six Flags - Hurricane Harbor",
+                                  "Six Flags Over Texas")) %>%
+  ggplot(aes(x = gender, y = avg, fill = gender)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Average age for each of 8 amusement parks per gender", x = "Genders", y = "Average Age") +
+  facet_wrap(~name_of_operation, ncol = 2)
+```
+
+Explanation - After looking at the multiple graphs we can conclude that These is a small difference in the average age between genders in the Schlitterbahn Galveston Island park and where as there was a big difference between average ages in the Schlitterbahn Beach Waterpark - South Padre Island park and Schlitterbahn Galveston park.
+
+
+* Using a bargraph (or histogram), show the total number of injured for each gender. Write a two sentence explanation of the graph.
+```{r}
+injuries$gender[injuries$gender == "m"] = "M"
+
+injuries %>%
+  group_by(gender) %>%
+  ggplot(aes(x = gender, fill = gender)) +
+  geom_bar() +
+  labs(title = "Total number of injured for each Gender", x = "Gender", y = "Count")
+```
+
+Explanation - We can conclude after looking at the graph that more females were injured in the parks in comparison to number of males.
+
+
+* Split the data into two data frames. 1 for 'Schlitterbahn' parks and 'Six Flags' parks.
+```{r}
+Schlitterbahn = injuries %>%
+  group_by(name_of_operation) %>%
+  filter(name_of_operation %in% c("Schlitterbahn Galveston", 
+                                  "Schlitterbahn - New Braunfels",
+                                  "Schlitterbahn-New Branufels",
+                                  "Schlitterbahn Beach Waterpark - South Padre Island",
+                                  "Schlitterbahn Galveston Island"))
+
+Six_Flags = injuries %>%
+  group_by(name_of_operation) %>%
+  filter(name_of_operation %in% c("Six Flags Fiesta Texas",
+                                  "Six Flags - Hurricane Harbor",
+                                  "Six Flags Over Texas"))
+```
+
+* Run a t-test comparing age of for 'Schlitterbahn' parks and 'Six Flags' parks.
+```{r}
+sd(Schlitterbahn$age, na.rm = TRUE)
+sd(Six_Flags$age, na.rm = TRUE)
+
+t.test(Schlitterbahn$age,Six_Flags$age)
+```
+
+* Present your results in APA format use inline R for p-value and t-value.
+
+On average, people at Schlitterbahn parks were slightly elder (M = 26.08, SD = 17.5) compared to people at Six_Flags (M = 21.9, SD = 16.49) this difference was not at all significant, t(105) = 1.60, p = 0.11.
+
+* Find the Top 3 Body parts injured at the 'Schlitterbahn' parks and 'Six Flags' parks. Using a bargraph (or histogram), show the total number of these 3 body parts injured for each gender. Part 2
+```{r}
+injuries$body_part_lower = tolower(injuries$body_part)
+
+top3_Parks_male = injuries %>%
+  filter(name_of_operation %in% c("Schlitterbahn Galveston", 
+                                  "Schlitterbahn - New Braunfels",
+                                  "Schlitterbahn-New Branufels",
+                                  "Schlitterbahn Beach Waterpark - South Padre Island",
+                                  "Schlitterbahn Galveston Island",
+                                  "Six Flags Fiesta Texas",
+                                  "Six Flags - Hurricane Harbor",
+                                  "Six Flags Over Texas")) %>%
+  filter(gender == "M") %>%
+  group_by(body_part_lower) %>%
+  count(body_part_lower) %>%
+  arrange(desc(n)) %>%
+  head(3) %>%
+  ggplot(aes(x=body_part_lower, y = n, fill = body_part_lower))+
+  geom_bar(stat = "Identity") +
+  labs(title = "Top 3 body parts injured at Schlitterbahn and Six Flags Parks for male", y = "Count", x = "Body Part")
+  
+top3_Parks_female = injuries %>%
+  filter(name_of_operation %in% c("Schlitterbahn Galveston", 
+                                  "Schlitterbahn - New Braunfels",
+                                  "Schlitterbahn-New Branufels",
+                                  "Schlitterbahn Beach Waterpark - South Padre Island",
+                                  "Schlitterbahn Galveston Island",
+                                  "Six Flags Fiesta Texas",
+                                  "Six Flags - Hurricane Harbor",
+                                  "Six Flags Over Texas")) %>%
+  filter(gender == "F") %>%
+  group_by(body_part_lower) %>%
+  count(body_part_lower) %>%
+  arrange(desc(n)) %>%
+  head(3) %>%
+  ggplot(aes(x=body_part_lower, y = n, fill = body_part_lower))+
+  geom_bar(stat = "Identity") +
+  labs(title = "Top 3 body parts injured at Schlitterbahn and Six Flags Parks for female", y = "Count", x = "Body Part")
+
+top3_Parks_male
+top3_Parks_female
+```
+
+
+* Now use the ENTIRE dataset
+```{r}
+top3_female = injuries %>%
+  filter(gender == "F") %>%
+  group_by(body_part_lower) %>%
+  count(body_part_lower) %>%
+  arrange(desc(n)) %>%
+  head(3) %>%
+  ggplot(aes(x=body_part_lower, y = n, fill = body_part_lower))+
+  geom_bar(stat = "Identity") +
+  labs(title = "Top 3 body parts injured at parks for female", y = "Count", x = "Body Part")
+top3_female
+
+top3_male = injuries %>%
+  filter(gender == "M") %>%
+  group_by(body_part_lower) %>%
+  count(body_part_lower) %>%
+  arrange(desc(n)) %>%
+  head(3) %>%
+  ggplot(aes(x=body_part_lower, y = n, fill = body_part_lower))+
+  geom_bar(stat = "Identity") +
+  labs(title = "Top 3 body parts injured at parks for male", y = "Count", x = "Body Part")
+top3_male
+```
+
+* Omit any rows with missing data in the gender column.
+```{r}
+injuries = injuries %>% 
+  drop_na(gender) %>%
+  subset(!(gender %in% c("n/a", "N/A"))) 
+```
+
+* Find the number of males and females injured at each park (i.e., name_of_operation)
+```{r}
+injuries %>%
+  group_by(name_of_operation, gender) %>%
+  count(name_of_operation)
+```
+
+* Run a t-test comparing the number males and females injured.
+```{r}
+ttest_FValue = injuries %>%
+  group_by(name_of_operation, gender) %>%
+  filter(gender=="F")  %>%
+  count(name_of_operation)
+
+ttest_MValue = injuries %>%
+  group_by(name_of_operation, gender) %>%
+  filter(gender=="M")  %>%
+  count(name_of_operation)
+
+sd(ttest_FValue$n, na.rm = TRUE)
+sd(ttest_MValue$n, na.rm = TRUE)
+
+t.test(ttest_FValue$n,ttest_MValue$n)
+```
+
+* Present your results in APA format use inline R for p-value and t-value.
+
+On average, more number of females were injured (M = 5.73, SD = 7.77) compared to males(M = 4.59, SD = 7.18) this difference was not at all significant, t(90) = 0.75, p = 0.46.
+
+
+
+
+
+# For 10
+
+First visit: https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-01-29
+You will only need to read in the following file:
+milkcow_facts.csv
+
+```{r}
+dataURLMilkcow = "https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-01-29/milkcow_facts.csv"
+milkcow = read_csv(dataURLMilkcow)
+head(milkcow)
+```
+
+* Use select to obtain the columns: year, avg_milk_cow_number, milk_per_cow, avg_price_milk, milk_cow_cost_per_animal, alfalfa_hay_price and slaughter_cow_price. Omit all other columns
+```{r}
+milkcow = milkcow %>%
+  select(year, avg_milk_cow_number, milk_per_cow, avg_price_milk, milk_cow_cost_per_animal, alfalfa_hay_price,slaughter_cow_price)
+head(milkcow)
+```
+
+* Omit any NAs from year, avg_milk_cow_number, milk_per_cow, avg_price_milk, milk_cow_cost_per_animal, alfalfa_hay_price or slaughter_cow_price
+```{r}
+milkcow = milkcow %>%
+  drop_na(year, avg_milk_cow_number, milk_per_cow, avg_price_milk, milk_cow_cost_per_animal, alfalfa_hay_price,slaughter_cow_price)
+head(milkcow)
+```
+
+* Using a line graph, show avg_milk_cow_number and year. Write a two sentence explanation of the graph.
+```{r}
+milkcow %>%
+  ggplot(aes(x = year, y = avg_milk_cow_number)) +
+  geom_line()
+```
+
+Explanation - Looking at the graph we can conclude that average mik cow number kept decreasing as the years went by.
+
+
+* Using a line graph, show milk_per_cow and year. Write a two sentence explanation of the graph.
+```{r}
+milkcow %>%
+  ggplot(aes(x = year, y = milk_per_cow)) +
+  geom_line()
+```
+
+Explanation - Looking at the graph we can conclude that Milk per cow is directly related to the year because as the year passed by milk per cow also increased.
+
+
+* Using a line graph, show avg_price_milk and year. Write a two sentence explanation of the graph.
+```{r}
+milkcow %>%
+  ggplot(aes(x = year, y = avg_price_milk)) +
+  geom_line()
+```
+
+Explanation - We can come to a conclusion after looking at the graph that as years passed by the average price of milk also kept increasing.
+
+
+* find the scatter plot of avg_milk_cow_number and milk_cow_cost_per_animal. Does the plot reveal any relationship between the variables? Write a two sentence explanation of the graph.
+```{r}
+milkcow %>%
+  ggplot(aes(x = milk_cow_cost_per_animal, y = avg_milk_cow_number )) +
+  geom_point()
+```
+
+Explanation - From the graph we can infer that the average milk cow number has been very high when the milk cow cost per animal was less than 0.6 but as the milk cow cost per animal increased the average milk cow number decreased.
+
+
+* find the scatter plot of avg_milk_cow_number and slaughter_cow_price. Does the plot reveal any relationship between the variables? Write a two sentence explanation of the graph.
+```{r}
+milkcow %>%
+  ggplot(aes(x = slaughter_cow_price, y = avg_milk_cow_number )) +
+  geom_point()
+```
+
+Explanation - The graph above tell us that the average milk cow number has been very high when the slaughter cow price was less than 0.6 but as the slaughter cow price increased the average milk cow number decreased.  
+
+
+* find the scatter plot of avg_milk_cow_number and avg_price_milk. Does the plot reveal any relationship between the variables? Write a two sentence explanation of the graph.
+```{r}
+milkcow %>%
+  ggplot(aes(x = avg_price_milk, y = avg_milk_cow_number )) +
+  geom_point()
+```
+
+Explanation - Looking at the graph we can conclude that the average milk cow number has been very high when the average price mik was less than 0.15 but as the avergae price milk increased the average milk cow number decreased.  
+
+
+* Run a regression on avg_milk_cow_number with slaughter_cow_price as the predictor.
+```{r}
+LinReg = lm(avg_milk_cow_number ~ slaughter_cow_price, data = milkcow)
+summary(LinReg)
+```
+
+* Present your results in APA format use inline R for p-value and t-value.
+
+Slaughter cow price has not significantly predicted Average milk cow number, b = -1511565, t(33) = -1.83, p = 0.07. Slaughter cow price also not explained a significant proportion of variance in Average milk cow number, R2 = 0.09, F(1,33) = 3.33, p = 0.07.
+
+* Run a regression on avg_milk_cow_number with milk_cow_cost_per_animal as the predictor.
+```{r}
+LinReg = lm(avg_milk_cow_number ~ milk_cow_cost_per_animal, data = milkcow)
+summary(LinReg)
+```
+
+* Present your results in APA format use inline R for p-value and t-value.
+
+Cow mik cost per animal significantly predicted Average milk cow number, b = -1576.6, t(33) = -5.12, p = 0. Cow mik cost per animal also explained a significant proportion of variance in Average milk cow number, R2 = 0.44, F(1,33) = 26.25, p = 0.
+
+* Run a regression on avg_milk_cow_number with avg_price_milk as the predictor.
+```{r}
+LinReg = lm(avg_milk_cow_number ~ avg_price_milk , data = milkcow)
+summary(LinReg)
+```
+
+* Present your results in APA format use inline R for p-value and t-value.
+
+Average price of milk significantly predicted on Average milk cow number, b = -9407539, t(33) = -2.37, p = 0.02. Average price of milk also explained a significant proportion of variance in Average milk cow number, R2 = 0.14, F(1,33) = 5.637, p = 0.02.
+
+
+* Write a 3-4 sentence summary of the three regressions.
+
+We can conclude that Average price of milk and cow milk cost per animal make a big difference and significantly predicts the average milk cow number. It is also noticeable from their b values that they negatively affect the average milk cow number. However Slaughter cow price did not make any significant predictions on Average milk cow number as the p value is above 0.05.
+
+
+
+
+
+
+
+
+
+
+
+
+
+# For 4
+
+First visit: https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-07-30
+You will only need to read in the following file:
+video_games.csv
+```{r}
+dataURLVideogames = "https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-07-30/video_games.csv"
+videoGames = read_csv(dataURLVideogames)
+head(videoGames)
+```
+
+* Use select to obtain the columns: game, release_date, price, average_playtime and metascore. Omit the other columns
+```{r}
+videoGames = videoGames %>%
+  select(game, release_date, price, average_playtime, metascore)
+head(videoGames)
+```
+
+* Omit any rows with missing data in game, release_date, price, average_playtime or metascore.
+```{r}
+videoGames = videoGames %>%
+  drop_na(game, release_date, price, average_playtime, metascore)
+head(videoGames)
+```
+
+* Extract the year from release_date
+```{r}
+videoGames$year = as.numeric(str_sub(videoGames$release_date,-4))
+videoGames
+```
+
+* Omit any games released before 2014
+```{r}
+videoGames = videoGames %>%
+  filter(year >= 2014)
+head(videoGames)
+```
+
+* Using a bargraph (or histogram), show the average metascore for games by year. Write a two sentence explanation of the graph.
+```{r}
+videoGames %>%
+  group_by(year) %>%
+  summarise(avg = mean(metascore)) %>%
+  ggplot(aes(x = year, y = avg, fill = year)) +
+  geom_bar(stat = "identity")
+```
+
+Explanation - From the graph we can infer that as years progressed we only see a very minute change in the average metascore towards the downside.
+
+
+* Using a bargraph (or histogram), show the average price for games by year. Write a two sentence explanation of the graph.
+```{r}
+videoGames %>%
+  group_by(year) %>%
+  summarise(avg = mean(price)) %>%
+  ggplot(aes(x = year, y = avg, fill = year)) +
+  geom_bar(stat = "identity")
+```
+
+Explanation - Looking at the graph we can conclude that as years progressed, the average price also kept increasing. It looks like the variables are directly related to the each other.
+
+
+* Find the scatter plot of price and metascore. Does the plot reveal any relationship between the variables? Write a two sentence explanation of the graph.
+```{r}
+videoGames %>%
+  ggplot(aes(x = metascore, y = price)) +
+  geom_point()
+```
+
+Explanation - We can come to a conclusion after looking at the graph that there is not much of a correlation between price and metascore but we can notice that the metascore has a wider range at low priceand as the price is increased the range of metascore is reduced.
+
+
+* Find the scatter plot of average_playtime and metascore. Does the plot reveal any relationship between the variables? Write a two sentence explanation of the graph.
+```{r}
+videoGames %>%
+  ggplot(aes(x = metascore, y = average_playtime)) +
+  geom_point()
+```
+
+Explanation - From the graph we can infer that there is a correlation between metascore and average_playtime because as the metascore is increased the average_playtime also increased.
+
+
+* Find the scatter plot of average_playtime and price. Does the plot reveal any relationship between the variables? Write a two sentence explanation of the graph.
+```{r}
+videoGames %>%
+  ggplot(aes(x = price, y = average_playtime)) +
+  geom_point()
+```
+
+Explanation - Looking at the graph we can conclude that there is not much of a correlation between price and average_playtime because the average_playtime is at the same range even when the price is increased. 
+
+
+* Run a regression on price with metascore as the predictor.
+```{r}
+LinReg = lm(price ~ metascore, data = videoGames)
+summary(LinReg)
+```
+
+* Present your results in APA format use inline R for p-value and t-value.
+
+Metascore significantly predicted Price, b = 0.25, t(1599) = 9.158, p = 0. Metascore also explained a significant proportion of variance in Price, R2 = 0.49, F(1,1599) = 83.88, p = 0.
+
+
+* Run a regression on average_playtime with metascore as the predictor.
+```{r}
+LinReg = lm(average_playtime ~ metascore, data = videoGames)
+summary(LinReg)
+```
+
+* Present your results in APA format use inline R for p-value and t-value.
+
+Metascore significantly predicted average playtime, b = 2.98, t(1599) = 4.19, p = 0. Metascore also explained a significant proportion of variance in average playtime, R2 = 0.01, F(1,1599) = 17.61, p = 0.
+
+
+* Run a regression on average_playtime with price as the predictor.
+```{r}
+LinReg = lm(average_playtime ~ price, data = videoGames)
+summary(LinReg)
+```
+
+* Present your results in APA format use inline R for p-value and t-value.
+
+Price significantly predicted average playtime, b = 3.59, t(1599) = 5.65, p = 0. Price also explained a significant proportion of variance in average playtime, R2 = 0.02, F(1,1599) = 31.98, p = 0.
